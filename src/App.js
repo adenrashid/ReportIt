@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { 
   GoogleMap, 
   useLoadScript,
@@ -18,11 +18,11 @@ import {
   ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
+import Geocode from "react-geocode";
 import "@reach/combobox/styles.css";
 import './App.css';
-import Geocode from "react-geocode";
 
-Geocode.setApiKey("AIzaSyClQs4ujpPT3AMY4WSwEiIjxu2I885vQ3I");
+Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -42,36 +42,60 @@ const options = {
 export default function App() {
 
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyClQs4ujpPT3AMY4WSwEiIjxu2I885vQ3I",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
   const [markers, setMarkers] = React.useState([]);
   const [selected, setSelected] = React.useState(null);
 
+  // useEffect(() => {
+  //   // console.log(selected)
+  //   if (selected === null) {
+  //     return ''
+  //   }
+  // }, [selected]);
+
   const onMapClick = React.useCallback((e) => {
-    setMarkers((current) => [
-      ...current,
-      {
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng(),
-        time: new Date(),
-        description: '',
-        location: location(e.latLng.lat(), e.latLng.lng())
+    Geocode.fromLatLng(e.latLng.lat(), e.latLng.lng()).then(
+      response => {
+        const address = response.results[0].formatted_address;
+        setMarkers((current) => [
+          ...current,
+          {
+            lat: e.latLng.lat(),
+            lng: e.latLng.lng(),
+            time: new Date(),
+            description: "",
+            location: address
+          }
+        ]);
+      },
+      error => {
+        console.error(error);
       }
-    ]);
+    ) 
   }, []);
 
   const onMapDrag = React.useCallback((e, index) => {
-    setMarkers((current) => {
-      const markers = [...current];
-      markers[index] = { 
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng(),
-        time: new Date(),
-        description: ""
-        }
-        return markers;
-    });
+    Geocode.fromLatLng(e.latLng.lat(), e.latLng.lng()).then(
+      response => {
+        const address = response.results[0].formatted_address;
+        setMarkers((current) => {
+          const markers = [...current];
+          markers[index] = { 
+          lat: e.latLng.lat(),
+          lng: e.latLng.lng(),
+          time: new Date(),
+          description: "", 
+          location: address
+          }
+          return markers;
+        });
+      },
+      error => {
+        console.error(error);
+      }
+    ) 
   }, []);
 
   const updateDescription = React.useCallback((e) => {
@@ -87,18 +111,6 @@ export default function App() {
     //     return markers;
     // });
   }, []);
-
-  const location = (lat, lng) => {
-    Geocode.fromLatLng(lat, lng).then(
-      response => {
-        const address = response.results[0].formatted_address;
-        console.log(address);
-      },
-      error => {
-        console.error(error);
-      }
-    ) 
-  }
 
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
@@ -165,7 +177,7 @@ export default function App() {
                   }
                 />
               </p>
-              <p>Location: </p>
+              <p>Location: {selected.location} </p>
               <p>Reported { formatRelative(selected.time, new Date()) }</p>
             </div>
           </InfoWindow>
