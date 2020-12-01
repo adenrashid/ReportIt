@@ -1,0 +1,40 @@
+.title {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: none;
+    border: none;
+    z-index: 10;
+}
+
+.subtitle {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    background: none;
+    border: none;
+    z-index: 10;
+}
+
+.locate {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    z-index: 10;
+}
+
+.locate img {
+    top: 20px;
+    right: 10px;
+    width: 40px;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.search {
+    position: absolute;
+    z-index: 10;
+    
+}
