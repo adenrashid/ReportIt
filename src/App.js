@@ -20,6 +20,9 @@ import {
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 import './App.css';
+import Geocode from "react-geocode";
+
+Geocode.setApiKey("AIzaSyClQs4ujpPT3AMY4WSwEiIjxu2I885vQ3I");
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -45,27 +48,57 @@ export default function App() {
   const [markers, setMarkers] = React.useState([]);
   const [selected, setSelected] = React.useState(null);
 
-  const onMapClick = React.useCallback((event) => {
+  const onMapClick = React.useCallback((e) => {
     setMarkers((current) => [
       ...current,
       {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
+        lat: e.latLng.lat(),
+        lng: e.latLng.lng(),
         time: new Date(),
+        description: '',
+        location: location(e.latLng.lat(), e.latLng.lng())
       }
     ]);
   }, []);
 
-  const onMapDrag = React.useCallback((event) => {
-    setMarkers((current) => [
-      ...current,
-      {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
+  const onMapDrag = React.useCallback((e, index) => {
+    setMarkers((current) => {
+      const markers = [...current];
+      markers[index] = { 
+        lat: e.latLng.lat(),
+        lng: e.latLng.lng(),
         time: new Date(),
-      }
-    ]);
+        description: ""
+        }
+        return markers;
+    });
   }, []);
+
+  const updateDescription = React.useCallback((e) => {
+    console.log(e.target.value)
+    // setMarkers((current) => {
+    //   const markers = [...current];
+    //   markers[index] = { 
+    //     lat: e.latLng.lat(),
+    //     lng: e.latLng.lng(),
+    //     time: new Date(),
+    //     description: `${e.target.value}`
+    //     }
+    //     return markers;
+    // });
+  }, []);
+
+  const location = (lat, lng) => {
+    Geocode.fromLatLng(lat, lng).then(
+      response => {
+        const address = response.results[0].formatted_address;
+        console.log(address);
+      },
+      error => {
+        console.error(error);
+      }
+    ) 
+  }
 
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
@@ -96,10 +129,10 @@ export default function App() {
         onClick={onMapClick}
         onLoad={onMapLoad}
       >
-        {markers.map(marker => (
-          console.log(marker),
+        {markers.map((marker, index) => (
           <Marker 
-            key={marker.time.toISOString()} 
+            key={index}
+            time={marker.time.toISOString()}
             position={{lat: marker.lat, lng: marker.lng}}
             draggable={true}
             icon={{
@@ -111,25 +144,32 @@ export default function App() {
             onClick={() => {
               setSelected(marker);
             }}
-            onDragEnd={(e) => onMapDrag(e)}
+            onDragEnd={
+              (e) => onMapDrag(e, index)
+            }
           />
         ))}
-
+ 
         {selected ? (
-          console.log(selected),
           <InfoWindow 
           position={{lat: selected.lat, lng: selected.lng}} 
           onCloseClick={() => {setSelected(null)}}
           >
             <div>
               <h2>Accident Reported!</h2>
-              {/* <p>Description: {label} </p> */}
+              <p>Description: 
+                <textarea 
+                  className="descriptionTextArea" 
+                  onChange={
+                    (e) => updateDescription(e)
+                  }
+                />
+              </p>
               <p>Location: </p>
               <p>Reported { formatRelative(selected.time, new Date()) }</p>
             </div>
           </InfoWindow>
         ) : null}
-          
       </GoogleMap>
     </div>
   )
