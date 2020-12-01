@@ -27,8 +27,8 @@ const mapContainerStyle = {
   height: "100vh",
 };
 const center = {
-  lat: -37.700560,
-  lng: 144.736810, 
+  lat: -37.8136,
+  lng: 144.9631, 
 }; 
 const options = {
   styles: mapStyles,
@@ -56,6 +56,17 @@ export default function App() {
     ]);
   }, []);
 
+  const onMapDrag = React.useCallback((event) => {
+    setMarkers((current) => [
+      ...current,
+      {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+        time: new Date(),
+      }
+    ]);
+  }, []);
+
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
     mapRef.current = map;
@@ -71,7 +82,7 @@ export default function App() {
 
   return (
     <div>
-      <h1 className="title">ReportIt</h1>
+      <h1 className="title">Pin It</h1>
       <h2 className="subtitle">Report an incident near you</h2>
 
       <Search panTo={panTo}/>
@@ -85,33 +96,39 @@ export default function App() {
         onClick={onMapClick}
         onLoad={onMapLoad}
       >
-          {markers.map(marker => (
-            <Marker 
-              key={marker.time.toISOString()} 
-              position={{lat: marker.lat, lng: marker.lng}}
-              icon={{
-                url: '/car.png',
-                scaledSize: new window.google.maps.Size(30,30),
-                origin: new window.google.maps.Point(0,0),
-                anchor: new window.google.maps.Point(15,15),
-              }}
-              onClick={() => {
-                setSelected(marker);
-              }}
-            />
-          ))}
+        {markers.map(marker => (
+          console.log(marker),
+          <Marker 
+            key={marker.time.toISOString()} 
+            position={{lat: marker.lat, lng: marker.lng}}
+            draggable={true}
+            icon={{
+              url: '/car.png',
+              scaledSize: new window.google.maps.Size(30,30),
+              origin: new window.google.maps.Point(0,0),
+              anchor: new window.google.maps.Point(15,15),
+            }}
+            onClick={() => {
+              setSelected(marker);
+            }}
+            onDragEnd={(e) => onMapDrag(e)}
+          />
+        ))}
 
-          {selected ? (
-            <InfoWindow 
-            position={{lat: selected.lat, lng: selected.lng}} 
-            onCloseClick={() => {setSelected(null)}}
-            >
-              <div>
-                <h2>Accident Reported!</h2>
-                <p>Reported { formatRelative(selected.time, new Date()) }</p>
-              </div>
-            </InfoWindow>
-          ) : null}
+        {selected ? (
+          console.log(selected),
+          <InfoWindow 
+          position={{lat: selected.lat, lng: selected.lng}} 
+          onCloseClick={() => {setSelected(null)}}
+          >
+            <div>
+              <h2>Accident Reported!</h2>
+              {/* <p>Description: {label} </p> */}
+              <p>Location: </p>
+              <p>Reported { formatRelative(selected.time, new Date()) }</p>
+            </div>
+          </InfoWindow>
+        ) : null}
           
       </GoogleMap>
     </div>
@@ -129,6 +146,7 @@ function Locate({panTo}) {
       }, () => null)
     }}>
       <img src="compass.png" alt="compass - pin to locate me" />
+      <p className="description">Find my current location</p>
     </button>
   );
 }
@@ -147,57 +165,38 @@ function Search({panTo}) {
     }
   })
 
-return (
-<Combobox onSelect={async (address) => {
+  return (
+    <Combobox onSelect={async (address) => {
 
-  setValue(address, false);
-  clearSuggestions();
+      setValue(address, false);
+      clearSuggestions();
 
-  try {
-    const results = await getGeocode({address});
-    const { lat, lng } = await getLatLng(results[0]);
-    panTo({ lat, lng });
-  } catch(error) {
-    console.log("error!")
-  }
-}}>
-  <ComboboxInput 
-    value={value} 
-    onChange={(e) => {
-      setValue(e.target.value)
-  }} 
-  disabled={!ready}
-  placeholder="Enter a location"
-  className="search"
-  />
-  <ComboboxPopover>
-    <ComboboxList>
-    {status === "OK" && 
-    data.map(({id, description}) => 
-      <ComboboxOption key={id} value={description} />)}
-    </ComboboxList>
-  </ComboboxPopover>
-  </Combobox>
-);
-}
+      try {
+        const results = await getGeocode({address});
+        const { lat, lng } = await getLatLng(results[0]);
+        panTo({ lat, lng });
+      } catch(error) {
+      console.log("error!")
+      }
+    }}>
   
-// export const App = () => {
-
-//   const [ latitude, setLatitude ] = useState(null)
-//   const [ longitude, setLongitude ] = useState(null)
-
-//   return (
-//     <React.Fragment>
-//       <GetUserCoordinates 
-//         setLatitude={setLatitude}
-//         setLongitude={setLongitude}
-//       />
-//       <MakeRequest 
-//         latitude={latitude}
-//         longitude={longitude}
-//       />
-//       {/* <GetData
-//       /> */}
-//     </React.Fragment>
-//   )
-// }
+    <ComboboxInput 
+      value={value} 
+      onChange={(e) => {
+        setValue(e.target.value)
+      }} 
+      disabled={!ready}
+      placeholder="Enter a location"
+      className="search"
+    />
+  
+    <ComboboxPopover>
+      <ComboboxList>
+      {status === "OK" && 
+      data.map(({id, description}) => 
+        <ComboboxOption key={id} value={description} />)}
+        </ComboboxList>
+        </ComboboxPopover>
+    </Combobox>
+  );
+};

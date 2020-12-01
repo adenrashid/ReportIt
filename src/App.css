@@ -5,6 +5,9 @@
     background: none;
     border: none;
     z-index: 10;
+    color: white;
+    font-family: 'Lato', sans-serif;
+    font-weight: 800;
 }
 
 .subtitle {
@@ -14,6 +17,9 @@
     background: none;
     border: none;
     z-index: 10;
+    color: white;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
 }
 
 .locate {
@@ -29,12 +35,24 @@
     top: 20px;
     right: 10px;
     width: 40px;
-    padding: 20px;
+    padding: 20px 20px 0 20px;
     cursor: pointer;
 }
 
 .search {
     position: absolute;
     z-index: 10;
-    
+    top: 120px;
+    left: 20px;
+    background-color: rgba(51, 51, 51, 1);
+    color: white;
+    font-family: 'Lato', sans-serif;
+    width: 280px;
+}
+
+.description {
+    color: rgba(2, 125, 195, 1);
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    font-weight: 800;
 }
