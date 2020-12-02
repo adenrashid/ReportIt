@@ -32,12 +32,12 @@ body {
 .info {
     position: absolute;
     color: white;
-    top: 200px;
+    top: 170px;
     left: 20px;
     font-family: 'Lato', sans-serif;
     font-weight: 300;
     font-size: 20px;
-    padding: 20px;
+    padding: 10px;
 }
 
 .footer {
@@ -69,7 +69,7 @@ body {
 .search {
     position: absolute;
     top: 140px;
-    right: 20px;
+    right: 18px;
     z-index: 2;
     background-color: rgba(51, 51, 51, 1);
     color: white;
@@ -116,4 +116,62 @@ a:hover {
 
 .hidden {
     display: none;
+}
+
+.update-input {
+    margin: 3px;
+}
+
+.loading {
+    padding: 3px;
+    animation: fadeIn ease 2s;
+    -webkit-animation: fadeIn ease 2s;
+    -moz-animation: fadeIn ease 2s;
+    -o-animation: fadeIn ease 2s;
+    -ms-animation: fadeIn ease 2s;
+}
+
+@keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-moz-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-webkit-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-o-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-ms-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+  }
 }

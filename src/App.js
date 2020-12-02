@@ -106,6 +106,8 @@ function ViewMap() {
   });
   const [markers, setMarkers] = React.useState([]);
   const [selected, setSelected] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
+  const [input, setInput] = React.useState('');
 
   const onMapClick = React.useCallback((e) => {
     Geocode.fromLatLng(e.latLng.lat(), e.latLng.lng()).then(
@@ -151,12 +153,20 @@ function ViewMap() {
   }, []);
 
   const updateDescription = React.useCallback((e) => {
-    markers[markers.indexOf(selected)].description = `${e.target.value}`
+    setInput(e.target.value);
+    if (e.target.value.length > 0) {
+      setLoading(true)
+    } else {
+      setLoading(false)
+    }
   })
 
-  const showLoader = () => {
-    return true
-  }
+  const onSubmit = React.useCallback((e) => {
+    e.preventDefault();
+    markers[markers.indexOf(selected)].description = `${input}`;
+    setLoading(false);
+    setInput('');
+  })
 
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
@@ -215,15 +225,20 @@ function ViewMap() {
           >
             <div>
               <h2>Accident Reported!</h2>
-              <p>Add An Update: 
-                <input 
-                  onChange={
-                    (e) => updateDescription(e),
-                    showLoader()
-                  }
-                />
-                <span className={showLoader ? "" : "hidden"}>🔷</span>
-              </p>
+              <form 
+                action=""
+                onSubmit={onSubmit}>
+                  <label htmlFor="">Add an update:</label>
+                  <input
+                    className="update-input"
+                    value={input} 
+                    onChange={
+                      (e) => updateDescription(e)
+                    }
+                  />
+                <button>Update</button>
+                {loading ? <span className="loading">🔷</span> : ''}
+              </form>
               <p>Latest Update: {selected.description}</p>  
               <p>Location: {selected.location} </p>
               <p>Reported { formatRelative(selected.time, new Date()) }</p>
