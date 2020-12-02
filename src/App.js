@@ -88,9 +88,9 @@ function Home() {
     <div>
       <h1 className="title">ReportIt</h1>
       <h2 className="subtitle">Pin an incident near you</h2>
-      <p className="info">ReportIt is made for users to report incidents near their area in real time. 
+      <p className="info">ReportIt is made for users to report incidents near their location in real time. 
       <br/><br/>
-      It helps others in your area to avoid certain areas where accidents may have occurred.
+      It helps others using the app to avoid certain areas where accidents may have occurred.
       <br/><br/>
       You can pin an incident by searching for your location in the search bar, or using your current location (you need to enable this in your browser). 
       <br/><br/>
@@ -325,25 +325,56 @@ function Search({panTo}) {
 }
 
 function ViewIncidents( {markers} ) {
+
+  const [timeDescending, setTimeDescending] = React.useState(false);
+  const [timeAscending, setTimeAscending] = React.useState(false);
+  const [currentLocation, setCurrentLocation] = React.useState(false);
+
+  const sortTimeDescending =
+    setTimeAscending(false);
+    markers.map((marker, index) => {
+      return ( 
+        <div className="incident-reports-wrap">
+          <li className="incident-reports" key={marker[index]}>
+            <p>Address: {marker.location}</p>
+            <p>Pinned Location: {marker.lat}, {marker.lng}</p>
+            <p>Time Reported: {marker.time.toString()}</p>
+            <p>Latest Update: {marker.description}</p>
+          </li>
+        </div>
+      )
+    })
+
+  const sortTimeAscending = 
+    setTimeDescending(false);
+    markers.reverse().map((marker, index) => {
+      return ( 
+        <div className="incident-reports-wrap">
+          <li className="incident-reports" key={marker[index]}>
+            <p>Address: {marker.location}</p>
+            <p>Pinned Location: {marker.lat}, {marker.lng}</p>
+            <p>Time Reported: {marker.time.toString()}</p>
+            <p>Latest Update: {marker.description}</p>
+          </li>
+        </div>
+      )
+    })
+
   return (
     <div>
       <h1 className="title">ReportIt</h1>
-      <h2 className="subtitle">Pin an incident near you</h2>
-      <h2 className="view-incidents">Reported Incidents</h2>
-      <ul className="incident-ul">
-        {markers.map((marker, index) => {
-          return ( 
-            <div className="incident-reports-wrap">
-              <li className="incident-reports" key={marker[index]}>
-                <p>Address: {marker.location}</p>
-                <p>Coordinates: {marker.lat},{marker.lng}</p>
-                <p>Time Reported: {marker.time.toString()}</p>
-                <p>Latest Update: {marker.description}</p>
-              </li>
-            </div>
-          )
-        })}
-      </ul>
+        <h2 className="subtitle">Pin an incident near you</h2>
+        <h2 className="view-incidents">Reported Incidents</h2>
+        <h2 className="filter">Filter By:</h2>
+        <div className="filters-wrap">
+          <button className="filters" onClick={() => setTimeDescending(true)}>Time Reported (Descending)</button>
+          {/* <button className="filters" onClick={() => setTimeAscending(true)}>Time Reported (Ascending)</button> */}
+          <button className="filters">Location (Closest to me)</button>
+        </div>
+        <ul className="incident-ul">
+          {timeDescending ? sortTimeDescending : ''}
+          {/* {timeAscending ? sortTimeAscending : ''} */}
+        </ul>
     </div>
   )
 }
