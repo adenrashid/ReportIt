@@ -328,7 +328,6 @@ function ViewIncidents( {markers} ) {
 
   const [timeDescending, setTimeDescending] = React.useState(false);
   const [timeAscending, setTimeAscending] = React.useState(false);
-  const [currentLocation, setCurrentLocation] = React.useState(false);
 
   const sortTimeDescending = 
     markers.map((marker, index) => {
@@ -368,16 +367,13 @@ function ViewIncidents( {markers} ) {
         <h2 className="filter">Filter By:</h2>
         <div className="filters-wrap">
           <button className="filters" onClick={
-            () => setTimeDescending(true),
-            () => setTimeAscending(false)
+            () => setTimeDescending(true)
             }>Time Reported (Descending)
           </button>
           <button className="filters" onClick={
-            () => setTimeAscending(true),
-            () => setTimeDescending(false)
+            () => setTimeAscending(true)
             }>Time Reported (Ascending)
           </button>
-          <button className="filters">Location (Closest to me)</button>
         </div>
         <ul className="incident-ul">
           {timeDescending ? sortTimeDescending : ''}
