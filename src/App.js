@@ -330,8 +330,7 @@ function ViewIncidents( {markers} ) {
   const [timeAscending, setTimeAscending] = React.useState(false);
   const [currentLocation, setCurrentLocation] = React.useState(false);
 
-  const sortTimeDescending =
-    setTimeAscending(false);
+  const sortTimeDescending = 
     markers.map((marker, index) => {
       return ( 
         <div className="incident-reports-wrap">
@@ -345,9 +344,10 @@ function ViewIncidents( {markers} ) {
       )
     })
 
+  const markersReversed = [...markers].reverse();
+
   const sortTimeAscending = 
-    setTimeDescending(false);
-    markers.reverse().map((marker, index) => {
+    markersReversed.map((marker, index) => {
       return ( 
         <div className="incident-reports-wrap">
           <li className="incident-reports" key={marker[index]}>
@@ -367,13 +367,21 @@ function ViewIncidents( {markers} ) {
         <h2 className="view-incidents">Reported Incidents</h2>
         <h2 className="filter">Filter By:</h2>
         <div className="filters-wrap">
-          <button className="filters" onClick={() => setTimeDescending(true)}>Time Reported (Descending)</button>
-          {/* <button className="filters" onClick={() => setTimeAscending(true)}>Time Reported (Ascending)</button> */}
+          <button className="filters" onClick={
+            () => setTimeDescending(true),
+            () => setTimeAscending(false)
+            }>Time Reported (Descending)
+          </button>
+          <button className="filters" onClick={
+            () => setTimeAscending(true),
+            () => setTimeDescending(false)
+            }>Time Reported (Ascending)
+          </button>
           <button className="filters">Location (Closest to me)</button>
         </div>
         <ul className="incident-ul">
           {timeDescending ? sortTimeDescending : ''}
-          {/* {timeAscending ? sortTimeAscending : ''} */}
+          {timeAscending ? sortTimeAscending : ''}
         </ul>
     </div>
   )
