@@ -88,9 +88,15 @@ function Home() {
     <div>
       <h1 className="title">ReportIt</h1>
       <h2 className="subtitle">Pin an incident near you</h2>
-      <p className="info">You can pin an accident by searching for your location in the search bar, or using your current location (you need to enable this in your browser). 
+      <p className="info">ReportIt is made for users to report incidents near their area in real time. 
+      <br/><br/>
+      It helps others in your area to avoid certain areas where accidents may have occurred.
+      <br/><br/>
+      You can pin an incident by searching for your location in the search bar, or using your current location (you need to enable this in your browser). 
       <br/><br/>
       Then, click on the map where you would like to drop a pin, and add a description of the incident.
+      <br/><br/>
+      If you need to update the description, please click on the pin again, and update the description. 
       <br/><br/>
       Thanks for using ReportIt!
       </p>
@@ -225,7 +231,7 @@ function ViewMap({ markers, setMarkers }) {
           onCloseClick={() => {setSelected(null)}}
           >
             <div>
-              <h2>Accident Reported!</h2>
+              <h2>Incident Reported!</h2>
               <form 
                 action=""
                 onSubmit={onSubmit}>
@@ -242,7 +248,7 @@ function ViewMap({ markers, setMarkers }) {
               </form>
               <p>Latest Update: {selected.description}</p>  
               <p>Location: {selected.location} </p>
-              <p>Reported { formatRelative(selected.time, new Date()) }</p>
+              <p>Reported: { formatRelative(selected.time, new Date()) }</p>
             </div>
           </InfoWindow>
         ) : null}
@@ -331,7 +337,7 @@ function ViewIncidents( {markers} ) {
               <li className="incident-reports" key={marker[index]}>
                 <p>Address: {marker.location}</p>
                 <p>Coordinates: {marker.lat},{marker.lng}</p>
-                <p>Time Reported: {marker.time.toISOString()}</p>
+                <p>Time Reported: {marker.time.toString()}</p>
                 <p>Latest Update: {marker.description}</p>
               </li>
             </div>
