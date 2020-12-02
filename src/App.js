@@ -47,11 +47,13 @@ const options = {
 
 export default function App() {
 
+  const [markers, setMarkers] = React.useState([]);
+
   return (
     <Router>
       <div>
         <nav>
-          <ul>
+          <ul className="routes-ul">
             <li className="routes">
               <Link to="/">Home</Link>
             </li>
@@ -66,10 +68,10 @@ export default function App() {
 
         <Switch>
           <Route path="/view-map">
-            <ViewMap />
+            <ViewMap markers={markers} setMarkers={setMarkers}/>
           </Route>
           <Route path="/view-incidents">
-            <ViewIncidents />
+            <ViewIncidents markers={markers}/>
           </Route>
           <Route path="/">
             <Home />
@@ -98,13 +100,12 @@ function Home() {
   );
 }
 
-function ViewMap() {
+function ViewMap({ markers, setMarkers }) {
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
-  const [markers, setMarkers] = React.useState([]);
   const [selected, setSelected] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [input, setInput] = React.useState('');
@@ -317,12 +318,26 @@ function Search({panTo}) {
 
 }
 
-function ViewIncidents() {
+function ViewIncidents( {markers} ) {
   return (
     <div>
       <h1 className="title">ReportIt</h1>
       <h2 className="subtitle">Pin an incident near you</h2>
-      <h2 className="info">View Incidents</h2>
+      <h2 className="view-incidents">Reported Incidents</h2>
+      <ul className="incident-ul">
+        {markers.map((marker, index) => {
+          return ( 
+            <div className="incident-reports-wrap">
+              <li className="incident-reports" key={marker[index]}>
+                <p>Address: {marker.location}</p>
+                <p>Coordinates: {marker.lat},{marker.lng}</p>
+                <p>Time Reported: {marker.time.toISOString()}</p>
+                <p>Latest Update: {marker.description}</p>
+              </li>
+            </div>
+          )
+        })}
+      </ul>
     </div>
   )
 }
