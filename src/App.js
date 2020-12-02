@@ -154,6 +154,10 @@ function ViewMap() {
     markers[markers.indexOf(selected)].description = `${e.target.value}`
   })
 
+  const showLoader = () => {
+    return true
+  }
+
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
     mapRef.current = map;
@@ -206,7 +210,6 @@ function ViewMap() {
  
         {selected ? (
           <InfoWindow
-          zIndex={100}
           position={{lat: selected.lat, lng: selected.lng}} 
           onCloseClick={() => {setSelected(null)}}
           >
@@ -214,10 +217,14 @@ function ViewMap() {
               <h2>Accident Reported!</h2>
               <p>Add An Update: 
                 <input 
-                  onChange={(e) => updateDescription(e)}
+                  onChange={
+                    (e) => updateDescription(e),
+                    showLoader()
+                  }
                 />
+                <span className={showLoader ? "" : "hidden"}>🔷</span>
               </p>
-              <p>Description: {selected.description}</p>  
+              <p>Latest Update: {selected.description}</p>  
               <p>Location: {selected.location} </p>
               <p>Reported { formatRelative(selected.time, new Date()) }</p>
             </div>

@@ -113,3 +113,7 @@ a {
 a:hover {
     color: rgba(2, 125, 195, 1);
 }
+
+.hidden {
+    display: none;
+}
