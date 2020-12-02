@@ -2,6 +2,10 @@
 
 ![report it](/app-img.png)
 
+### CLICK HERE to view the deployed app: https://report-it-app.surge.sh/
+
+## Development / Functionality 
+
 - ReportIt is made for users to report incidents near their location in real time.
 - It helps others using the app to avoid certain areas where accidents may have occurred.
 - Users can pin an incident by searching for your location in the search bar, or using your current location (you need to enable this in your browser). The app will default to Melbourne, AUS as the center if no location is specified. 
@@ -9,10 +13,6 @@
 - If you need to update the description, please click on the pin again, and update the description.
 - If you'd like to view listed incidents, navigate to the incidents tab. 
 - Thanks for using ReportIt!
-
-# CLICK HERE to view the deployed app: https://report-it-app.surge.sh/
-
-## Development 
 
 ### Technologies Used 
 
