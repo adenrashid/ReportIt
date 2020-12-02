@@ -138,7 +138,7 @@ function ViewMap() {
           lat: e.latLng.lat(),
           lng: e.latLng.lng(),
           time: new Date(),
-          description: selected.description, 
+          description: markers[index].description, 
           location: address
           }
           return markers;
@@ -151,12 +151,7 @@ function ViewMap() {
   }, []);
 
   const updateDescription = React.useCallback((e) => {
-    // setMarkers((current) => {
-      // const markers = [...current];
-      markers[markers.indexOf(selected)].description = `${e.target.value}`
-  //     return markers;
-  //   });
-  // }, []);
+    markers[markers.indexOf(selected)].description = `${e.target.value}`
   })
 
   const mapRef = React.useRef();
@@ -210,16 +205,18 @@ function ViewMap() {
         ))}
  
         {selected ? (
-          <InfoWindow 
+          <InfoWindow
+          zIndex={100}
           position={{lat: selected.lat, lng: selected.lng}} 
           onCloseClick={() => {setSelected(null)}}
           >
             <div>
               <h2>Accident Reported!</h2>
-              <input 
-                  className="descriptionTextArea" 
+              <p>Add An Update: 
+                <input 
                   onChange={(e) => updateDescription(e)}
                 />
+              </p>
               <p>Description: {selected.description}</p>  
               <p>Location: {selected.location} </p>
               <p>Reported { formatRelative(selected.time, new Date()) }</p>
