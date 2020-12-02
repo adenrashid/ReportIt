@@ -41,15 +41,20 @@
 - Coming up with a clear cut idea on how to use google maps api. initially i wanted to make a whats open near me app listing everything that is open around user location. but realised this idea was quite broad and i couldnt hone it in. so decided to make a more practical and functional app of reporting accidents in user area. 
 - Using new react-google-maps/api, as the old one was no longer maintained. very little docs on how to use this. ultimately with a lot of research figured out the functionality. 
 - General react functionality
+- Updating and working with state when state is an array of objects i.e. an array of markers/pinned locations.
 - React routing, passing state through routes so that multiple routes would have the state i.e. in map and incident routes. 
 - Deploying to heroku, realised this was unnecessary due to no back end so deployed to surge instead. google maps needs secure servers so https must be specified in URL if you want find location features of google to work. 
 
 #### Persisting Problems 
 
 - Need to refactor code into different folders and routes 
-- Need to fix filter function 
+- Need to fix filter functionality in list incidents route page 
+- Multiple warning pop ups appearing at times within the app, which do not effect the functionality, however should be fixed 
 
 ### Lessons 
+
+- It takes time to learn new features and time to implement them, some features take more time than you would think so give yourself a bit more time to read, watch videos, and generally research, if its a new tech that you're using. because things will go wrong so need that time to be able to troubleshoot it.
+- also need time to go through API/tech docs if new to use.
 
 ### Stretch goals 
 
@@ -58,3 +63,4 @@
 - Would've also liked to store all of the updates made to an incident. 
 - Implemented a delete function so that the marker can be cleared by the user once the incident has been resolved. 
 - Implement a filter by location button so that user can filter incidents by closest to their current location. 
+- Have different types of incidents i.e. car crash, traffic, roadworks be specified by different markers. 
