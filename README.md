@@ -10,7 +10,7 @@
 - If you'd like to view listed incidents, navigate to the incidents tab. 
 - Thanks for using ReportIt!
 
-### CLICK HERE to view the deployed app: https://report-it-app.surge.sh/
+# CLICK HERE to view the deployed app: https://report-it-app.surge.sh/
 
 ## Development 
 
@@ -32,7 +32,8 @@
 
 ### Planning 
 
-- In my planning stages, I wanted to focus on building a front end REACT application to strengthen my skills in this area. I also wanted to learn and implement an API and decided on google maps as it is free and with many resources on how to use it. 
+- In my planning stages, I wanted to focus on building a front end REACT application to strengthen my skills in React and javascript. 
+- I also wanted to learn and implement a new API and decided on google maps as it is free and with many resources on how to use it. 
 
 ### Problems 
 
@@ -49,7 +50,7 @@
 
 - Need to refactor code into different folders and routes 
 - Need to fix filter functionality in list incidents route page 
-- Multiple warning pop ups appearing at times within the app, which do not effect the functionality, however should be fixed 
+- "Warning" pop ups appearing at times within the app, which do not effect the functionality, however should be fixed 
 
 ### Lessons 
 
@@ -59,7 +60,7 @@
 ### Stretch goals 
 
 - Ideally if I had more time, I would've liked to create a backend so accidents are saved to a database, and are stored when the session is closed. I would've liked to do this in node/express. 
-- I would have also liked to have a sign up/log in functionality, so that it is recorded which user reported the accident.
+- I would have also liked to have a sign up/log in functionality, so that it is recorded which user reported the accident. (Again needing backend)
 - Would've also liked to store all of the updates made to an incident. 
 - Implemented a delete function so that the marker can be cleared by the user once the incident has been resolved. 
 - Implement a filter by location button so that user can filter incidents by closest to their current location. 
