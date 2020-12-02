@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { 
   GoogleMap, 
   useLoadScript,
@@ -19,6 +19,12 @@ import {
   ComboboxOption,
 } from "@reach/combobox";
 import Geocode from "react-geocode";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import "@reach/combobox/styles.css";
 import './App.css';
 
@@ -41,19 +47,65 @@ const options = {
 
 export default function App() {
 
+  return (
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li className="routes">
+              <Link to="/">Home</Link>
+            </li>
+            <li className="routes">
+              <Link to="/view-map">View Map</Link>
+            </li>
+            <li className="routes">
+              <Link to="/view-incidents">View Incidents</Link>
+            </li>
+          </ul>
+        </nav>
+
+        <Switch>
+          <Route path="/view-map">
+            <ViewMap />
+          </Route>
+          <Route path="/view-incidents">
+            <ViewIncidents />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  );
+
+};
+
+function Home() {
+  return (
+    <div>
+      <h1 className="title">ReportIt</h1>
+      <h2 className="subtitle">Pin an incident near you</h2>
+      <p className="info">You can pin an accident by searching for your location in the search bar, or using your current location (you need to enable this in your browser). 
+      <br/><br/>
+      Then, click on the map where you would like to drop a pin, and add a description of the incident.
+      <br/><br/>
+      Thanks for using ReportIt!
+      </p>
+      <br/>
+      <footer className="footer">Created by Aden for Project 4 of the Software Engineering Immersive - General Assembly &copy; 2020</footer>
+    </div>
+  );
+}
+
+function ViewMap() {
+
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
   const [markers, setMarkers] = React.useState([]);
   const [selected, setSelected] = React.useState(null);
-
-  // useEffect(() => {
-  //   // console.log(selected)
-  //   if (selected === null) {
-  //     return ''
-  //   }
-  // }, [selected]);
 
   const onMapClick = React.useCallback((e) => {
     Geocode.fromLatLng(e.latLng.lat(), e.latLng.lng()).then(
@@ -86,7 +138,7 @@ export default function App() {
           lat: e.latLng.lat(),
           lng: e.latLng.lng(),
           time: new Date(),
-          description: "", 
+          description: selected.description, 
           location: address
           }
           return markers;
@@ -99,18 +151,13 @@ export default function App() {
   }, []);
 
   const updateDescription = React.useCallback((e) => {
-    console.log(e.target.value)
     // setMarkers((current) => {
-    //   const markers = [...current];
-    //   markers[index] = { 
-    //     lat: e.latLng.lat(),
-    //     lng: e.latLng.lng(),
-    //     time: new Date(),
-    //     description: `${e.target.value}`
-    //     }
-    //     return markers;
-    // });
-  }, []);
+      // const markers = [...current];
+      markers[markers.indexOf(selected)].description = `${e.target.value}`
+  //     return markers;
+  //   });
+  // }, []);
+  })
 
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
@@ -127,8 +174,8 @@ export default function App() {
 
   return (
     <div>
-      <h1 className="title">Pin It</h1>
-      <h2 className="subtitle">Report an incident near you</h2>
+      <h1 className="title">ReportIt</h1>
+      <h2 className="subtitle">Pin an incident near you</h2>
 
       <Search panTo={panTo}/>
       <Locate panTo={panTo}/>
@@ -169,14 +216,11 @@ export default function App() {
           >
             <div>
               <h2>Accident Reported!</h2>
-              <p>Description: 
-                <textarea 
+              <input 
                   className="descriptionTextArea" 
-                  onChange={
-                    (e) => updateDescription(e)
-                  }
+                  onChange={(e) => updateDescription(e)}
                 />
-              </p>
+              <p>Description: {selected.description}</p>  
               <p>Location: {selected.location} </p>
               <p>Reported { formatRelative(selected.time, new Date()) }</p>
             </div>
@@ -251,4 +295,15 @@ function Search({panTo}) {
         </ComboboxPopover>
     </Combobox>
   );
-};
+
+}
+
+function ViewIncidents() {
+  return (
+    <div>
+      <h1 className="title">ReportIt</h1>
+      <h2 className="subtitle">Pin an incident near you</h2>
+      <h2 className="info">View Incidents</h2>
+    </div>
+  )
+}

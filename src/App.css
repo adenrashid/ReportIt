@@ -1,6 +1,11 @@
+body {
+    background-color: rgba(43, 43, 43, 1);
+    box-sizing: border-box;
+}
+
 .title {
     position: absolute;
-    top: 20px;
+    top: 80px;
     left: 20px;
     background: none;
     border: none;
@@ -12,7 +17,7 @@
 
 .subtitle {
     position: absolute;
-    top: 60px;
+    top: 120px;
     left: 20px;
     background: none;
     border: none;
@@ -22,9 +27,28 @@
     font-weight: 300;
 }
 
+.info {
+    position: absolute;
+    color: white;
+    top: 200px;
+    left: 20px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+}
+
+.footer {
+    position: absolute;
+    color: white;
+    bottom: 20px;
+    left: 20px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+}
+
 .locate {
     position: absolute;
-    top: 20px;
+    top: 80px;
     right: 20px;
     background: none;
     border: none;
@@ -42,7 +66,7 @@
 .search {
     position: absolute;
     z-index: 10;
-    top: 120px;
+    top: 180px;
     right: 20px;
     background-color: rgba(51, 51, 51, 1);
     color: white;
@@ -57,6 +81,29 @@
     font-weight: 800;
 }
 
-.descriptionTextArea {
-    height: 70px;
+ul {
+    display: flex;
+    justify-content: space-around;
+    padding-inline-start: 0;
+}
+
+.routes {
+    list-style: none;
+    font-family: 'Lato', sans-serif;
+    font-weight: 800;
+    display: inline-flex;
+    justify-content: space-between;
+    font-size: 20px;
+    padding: 5px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+a:hover {
+    color: rgba(2, 125, 195, 1);
 }
