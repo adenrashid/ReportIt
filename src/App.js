@@ -58,10 +58,10 @@ export default function App() {
               <Link to="/">Home</Link>
             </li>
             <li className="routes">
-              <Link to="/map">View Map</Link>
+              <Link to="/map">Map</Link>
             </li>
             <li className="routes">
-              <Link to="/incidents">View Incidents</Link>
+              <Link to="/incidents">Incidents</Link>
             </li>
           </ul>
         </nav>
