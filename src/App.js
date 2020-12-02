@@ -58,19 +58,19 @@ export default function App() {
               <Link to="/">Home</Link>
             </li>
             <li className="routes">
-              <Link to="/view-map">View Map</Link>
+              <Link to="/map">View Map</Link>
             </li>
             <li className="routes">
-              <Link to="/view-incidents">View Incidents</Link>
+              <Link to="/incidents">View Incidents</Link>
             </li>
           </ul>
         </nav>
 
         <Switch>
-          <Route path="/view-map">
+          <Route path="/map">
             <ViewMap markers={markers} setMarkers={setMarkers}/>
           </Route>
-          <Route path="/view-incidents">
+          <Route path="/incidents">
             <ViewIncidents markers={markers}/>
           </Route>
           <Route path="/">
