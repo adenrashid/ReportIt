@@ -53,6 +53,8 @@
 - Fixed filters functionality, so you can sort by time reported ascending or descending, and location (closest to me).
 - Location closest to me was calculated by taking current user coords, then using pythagorus theorum to sort markers array. 
 
+![pythagorus](/pythagorus.png)
+
 #### Persisting Problems 
 
 - "Uncaught Type Error: Cannot read property 'apply' of null" pop up appearing when a selected marker is clicked. 
