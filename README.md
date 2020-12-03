@@ -44,7 +44,8 @@
 #### Fixed Problems 
 
 - Previous idea was to implement axios and express to get data from google maps api and implement it in the app. Tried using axios but was getting CORS issue where maps api didnt allow client side access, so would need to implement a back end for this to work and then build my own API. decided to use maps as is with markers instead. 
-- Using new react-google-maps/api, as the old one was no longer maintained. very little docs on how to use this. ultimately with a lot of research figured out the functionality. 
+- Using new component library react-google-maps/api, as the old one was no longer maintained. very little docs on how to use this as it was only published a few months ago. ultimately with a lot of research figured out the functionality. 
+- Due to new component library, learnt to use react hooks to use state within functions rather than using classes.
 - Updating and working with state when state is an array of objects i.e. an array of markers/pinned locations.
 - React routing, passing state through routes so that multiple routes would have the state i.e. in map and incident routes. 
 - Refactoring code into different routes.
@@ -64,7 +65,7 @@
 
 ### Stretch goals 
 
-- Ideally if I had more time, I would've liked to create a backend so accidents are saved to a database, and are stored when the session is closed. I would've liked to do this in node/express. 
+- Creating a backend so accidents are saved to a database, and are stored when the session is closed, using node.js, express.
 - Implement a sign up/log in functionality, so that it is recorded which user reported the accident.
 - Store in database all of the updates made to an incident. 
 - Implement a delete function so that the marker can be cleared by the user once the incident has been resolved. 
