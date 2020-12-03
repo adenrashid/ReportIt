@@ -18,11 +18,10 @@
 
 - Javascript
 - React 
-- Node.js 
 - Google Maps Javascript API 
 - Places API 
 - react-google-maps/api
-- mapStyles
+- mapStyles: Snazzy Maps
 - date-fns
 - use-places-autocomplete
 - reach/combobox
@@ -32,9 +31,11 @@
 
 ### Planning 
 
-- In my planning stages, I wanted to focus on building a front end REACT application to strengthen my skills in React and javascript. 
+- In my planning stages, I wanted to focus on building a front end React application to strengthen my skills in React and Javascript. 
 - I also wanted to learn and implement a new API and decided on google maps as it is free and with many resources on how to use it. 
 - Initial wireframing was based on a different app idea, then modified to suit ReportIt.
+- Coming up with a clear idea on how to use google maps api proved difficult. initially i wanted to make a whats open near me app listing everything that is open around user location. but realised this idea was quite broad. so decided to make a more practical and functional app of reporting accidents in user area. 
+- Wanted to use axios, express, node.js however did not have time to implement a backend. 
 
 ![whats open](/whats_open.png)
 
@@ -42,9 +43,8 @@
 
 #### Fixed Problems 
 
-- Coming up with a clear cut idea on how to use google maps api. initially i wanted to make a whats open near me app listing everything that is open around user location. but realised this idea was quite broad and i couldnt hone it in. so decided to make a more practical and functional app of reporting accidents in user area. 
+- Previous idea was to implement axios and express to get data from google maps api and implement it in the app. Tried using axios but was getting CORS issue where maps api didnt allow client side access, so would need to implement a back end for this to work and then build my own API. decided to use maps as is with markers instead. 
 - Using new react-google-maps/api, as the old one was no longer maintained. very little docs on how to use this. ultimately with a lot of research figured out the functionality. 
-- General react functionality
 - Updating and working with state when state is an array of objects i.e. an array of markers/pinned locations.
 - React routing, passing state through routes so that multiple routes would have the state i.e. in map and incident routes. 
 - Refactoring code into different routes.
@@ -64,10 +64,9 @@
 
 ### Stretch goals 
 
-- Formatting for mobile use.
 - Ideally if I had more time, I would've liked to create a backend so accidents are saved to a database, and are stored when the session is closed. I would've liked to do this in node/express. 
-- I would have also liked to have a sign up/log in functionality, so that it is recorded which user reported the accident. (Again needing backend)
-- Would've also liked to store all of the updates made to an incident. 
-- Implemented a delete function so that the marker can be cleared by the user once the incident has been resolved. 
-- Implement a filter by location button so that user can filter incidents by closest to their current location. 
+- Implement a sign up/log in functionality, so that it is recorded which user reported the accident.
+- Store in database all of the updates made to an incident. 
+- Implement a delete function so that the marker can be cleared by the user once the incident has been resolved. 
 - Have different types of incidents i.e. car crash, traffic, roadworks be specified by different markers. 
+- Formatting for mobile use.
