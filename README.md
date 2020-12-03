@@ -34,6 +34,9 @@
 
 - In my planning stages, I wanted to focus on building a front end REACT application to strengthen my skills in React and javascript. 
 - I also wanted to learn and implement a new API and decided on google maps as it is free and with many resources on how to use it. 
+- Initial wireframing was based on a different app idea, then modified to suit ReportIt.
+
+![whats open](/whats_open.png)
 
 ### Problems 
 
@@ -44,13 +47,13 @@
 - General react functionality
 - Updating and working with state when state is an array of objects i.e. an array of markers/pinned locations.
 - React routing, passing state through routes so that multiple routes would have the state i.e. in map and incident routes. 
+- Refactoring code into different routes.
 - Deploying to heroku, realised this was unnecessary due to no back end so deployed to surge instead. google maps needs secure servers so https must be specified in URL if you want find location features of google to work. 
 
 #### Persisting Problems 
 
-- Need to refactor code into different folders and routes 
-- Need to fix filter functionality in list incidents route page 
-- "Warning" pop ups appearing at times within the app, which do not effect the functionality, however should be fixed 
+- Need to fix filter by location functionality in list incidents route page. 
+- "Uncaught Type Error: Cannot read property 'apply' of null" pop up appearing when a selected marker is clicked. 
 
 ### Lessons 
 

@@ -80,7 +80,8 @@ function Incidents( {markers} ) {
                 lat: position.coords.latitude, 
                 lng: position.coords.longitude
                 })
-            }, () => null)
+            }, () => null),
+            <sortMarkerCoords markers={markers}/>
 
             }>Location (Closest to me)
           </button>
@@ -95,35 +96,32 @@ function Incidents( {markers} ) {
 
 };
 
-function sortByLocation(markers) {
-
-    const calcDistance = (lat, lng) => {
-      if (userCoords.lat === lat && userCoords.lng === lng) {
-        return 0
-      } else {
-        return Math.abs(
-          (Math.sqrt(Math.abs(lng)) - Math.sqrt(Math.abs(userCoords.lng))) + (Math.sqrt(Math.abs(lat)) - Math.sqrt(Math.abs(userCoords.lat)))
-        )
-      }
-    }
-
-    const loopMarkers = () => {
-      for (let i = 0; i < markers.length; i++) {
-        let distancefromUser = calcDistance(markers[i].lat, markers[i].lng)
-        markers[i].distancefromUser = distancefromUser
-      };
-    }
-
-    console.log(
-      markers
-        .sort((a, b) => a.distancefromUser - b.distancefromUser)
-        .forEach(marker => console.log(marker))
-    )
-
-};
-
 const userCoords = ({lat, lng}) => {
-  console.log({lat, lng});
+  let userCoords = {lat, lng}
+  console.log(userCoords);
 };
+
+const sortMarkerCoords = (markers) => {
+
+  const calcDistance = (lat, lng) => {
+    if (userCoords.lat === lat && userCoords.lng === lng) {
+      return 0
+    } else {
+      return Math.sqrt(Math.pow(lat-userCoords.lat,2) + Math.pow(lng-userCoords.lng, 2))
+    }
+  }
+  
+  for (let i = 0; i < markers.length; i++) {
+    let distanceFromUser = calcDistance(markers[i].lat, markers[i].lng)
+    markers[i].distanceFromUser = distanceFromUser
+  }
+  
+  console.log(
+    markers
+      .sort((a, b) => a.distanceFromUser - b.distanceFromUser)
+      .forEach(marker => console.log(marker))
+  )
+
+}
 
 export default Incidents
