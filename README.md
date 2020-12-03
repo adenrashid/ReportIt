@@ -62,6 +62,7 @@
 
 ### Stretch goals 
 
+- Formatting for mobile use.
 - Ideally if I had more time, I would've liked to create a backend so accidents are saved to a database, and are stored when the session is closed. I would've liked to do this in node/express. 
 - I would have also liked to have a sign up/log in functionality, so that it is recorded which user reported the accident. (Again needing backend)
 - Would've also liked to store all of the updates made to an incident. 
