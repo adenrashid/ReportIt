@@ -50,7 +50,6 @@ function Incidents( {markers} ) {
     })
   
   const sortUserLocation = (markers) => {
-    console.log(markers)
     return markers.map((marker, index) => {
       return ( 
       <div className="incident-reports-wrap" key={index}>
@@ -80,9 +79,9 @@ function Incidents( {markers} ) {
       markers[i].distanceFromUser = distanceFromUser
     }
     
-    let sortedMarkers = markers.sort((a, b) => a.distanceFromUser - b.distanceFromUser)
+    let sorted = [...markers].sort((a, b) => a.distanceFromUser - b.distanceFromUser)
 
-    return sortUserLocation(sortedMarkers)
+    return sortUserLocation(sorted)
 
   }
   
