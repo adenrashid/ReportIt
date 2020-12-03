@@ -49,11 +49,13 @@
 - React routing, passing state through routes so that multiple routes would have the state i.e. in map and incident routes. 
 - Refactoring code into different routes.
 - Deploying to heroku, realised this was unnecessary due to no back end so deployed to surge instead. google maps needs secure servers so https must be specified in URL if you want find location features of google to work. 
+- Fixed filters functionality, so you can sort by time reported ascending or descending, and location (closest to me).
+- Location closest to me was calculated by taking current user coords, then using pythagorus theorum to sort markers array. 
 
 #### Persisting Problems 
 
-- Need to fix filter by location functionality in list incidents route page. 
 - "Uncaught Type Error: Cannot read property 'apply' of null" pop up appearing when a selected marker is clicked. 
+- Every time location services wants to be accessed, google chrome blocks it, so every time user wants to sort filter by closest to their location, they need to allow location services again. couldnt find a solution to have this always be allowed in the browser. 
 
 ### Lessons 
 
