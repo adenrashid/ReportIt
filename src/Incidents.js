@@ -18,25 +18,11 @@ function Incidents( {markers} ) {
     setTimeDescending(false)  
     setUserLocation(false)    
   }
-
-  const sortTimeDescending = 
-    markers.map((marker, index) => {
-      return ( 
-      <div className="incident-reports-wrap" key={index}>
-          <li className="incident-reports">
-          <p>Address: {marker.location}</p>
-          <p>Pinned Location: {marker.lat}, {marker.lng}</p>
-          <p>Time Reported: {marker.time.toString()}</p>
-          <p>Latest Update: {marker.description}</p>
-          </li>
-      </div>
-      )
-    })
   
   const markersReversed = [...markers].reverse();
 
-  const sortTimeAscending = 
-    markersReversed.map((marker, index) => {
+  const sortTimeAscending = () => {
+    return markersReversed.map((marker, index) => {
       return ( 
         <div className="incident-reports-wrap" key={index}>
           <li className="incident-reports">
@@ -48,6 +34,22 @@ function Incidents( {markers} ) {
         </div>
       )
     })
+  }
+
+  const sortTimeDescending = (markers) => {
+    return markers.map((marker, index) => {
+      return ( 
+      <div className="incident-reports-wrap" key={index}>
+          <li className="incident-reports">
+          <p>Address: {marker.location}</p>
+          <p>Pinned Location: {marker.lat}, {marker.lng}</p>
+          <p>Time Reported: {marker.time.toString()}</p>
+          <p>Latest Update: {marker.description}</p>
+          </li>
+      </div>
+      )
+    })
+  }
   
   const sortUserLocation = (markers) => {
     return markers.map((marker, index) => {
@@ -116,14 +118,12 @@ function Incidents( {markers} ) {
           </button>
           <button 
             className="filters" 
-            onClick={
-              getUserLocation
-            }>Location (Closest to me)
+            onClick={getUserLocation}>Location (Closest to me)
           </button>
         </div>
         <ul className="incident-ul">
-          {timeDescending ? sortTimeDescending : ''}
-          {timeAscending ? sortTimeAscending : ''}
+          {timeDescending ? sortTimeDescending(markers) : ''}
+          {timeAscending ? sortTimeAscending(markers) : ''}
           {userLocation ? sortMarkerCoords(userCoordinates, markers) : ''}
         </ul>
     </div>
